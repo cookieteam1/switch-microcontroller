@@ -19,8 +19,8 @@ D_Y_B = 420
 F_X_B = 686
 F_Y_B = 289
 
-W = 1280
-H = 720
+W = 1920
+H = 1080
 D_X = int(W * D_X_B / W_B)
 D_Y = int(H * D_Y_B / H_B)
 F_X = int(W * F_X_B / W_B)
@@ -146,7 +146,7 @@ def main() -> int:
             t_end = time.time() + .65
 
             frame = _getframe(vid)
-            while not numpy.array_equal(frame[D_Y][D_X], (49, 49, 49)):
+            while not numpy.array_equal(frame[D_Y][D_X], (59, 59, 59)):
                 if time.time() > t_end:
                     ser.write(b'd' if left else b'a')
                     left = not left
@@ -157,12 +157,12 @@ def main() -> int:
 
             print('dialog started')
 
-            _await_not_pixel(ser, vid, x=D_X, y=D_Y, pixel=(49, 49, 49))
+            _await_not_pixel(ser, vid, x=D_X, y=D_Y, pixel=(59, 59, 59))
 
             print('dialog ended')
             t0 = time.time()
 
-            _await_pixel(ser, vid, x=D_X, y=D_Y, pixel=(49, 49, 49))
+            _await_pixel(ser, vid, x=D_X, y=D_Y, pixel=(59, 59, 59))
 
             t1 = time.time()
             print(f'dialog delay: {t1 - t0:.3f}s')
@@ -171,7 +171,7 @@ def main() -> int:
                 print('SHINY!!!')
                 _alarm(ser, vid)
 
-            _await_pixel(ser, vid, x=686, y=289, pixel=(16, 16, 16))
+            _await_pixel(ser, vid, x=F_X, y=F_Y, pixel=(16, 16, 16))
             _wait_and_render(vid, .05)
             _press(ser, 'w')
             _press(ser, 'A')
