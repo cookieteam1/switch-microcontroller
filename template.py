@@ -22,7 +22,10 @@ def main() -> int:
     with serial.Serial(args.serial, 9600) as ser:
         while True:
             pass #Here could be your code
-
+    
+    vid.release()
+    cv2.destroyAllWindows()
+    return 0
 
 if __name__ == '__main__':
     exit(main())
