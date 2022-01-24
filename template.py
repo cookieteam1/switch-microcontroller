@@ -10,6 +10,7 @@ SERIAL_DEFAULT = 'COM1' if sys.platform == 'win32' else '/dev/ttyUSB0'
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--serial', default=SERIAL_DEFAULT)
+    parser.add_argument('--baud', default=9600)#opencv frame height
     parser.add_argument('--camera', default=0)
     parser.add_argument('--camAPI', default=0)#opencv videocapture api
     parser.add_argument('--frameW', default=640)#opencv frame width
@@ -20,7 +21,7 @@ def main() -> int:
     vid.set(cv2.CAP_PROP_FRAME_WIDTH, args.frameW)
     vid.set(cv2.CAP_PROP_FRAME_HEIGHT, args.frameH)
 
-    with serial.Serial(args.serial, 9600) as ser, _shh(ser):
+    with serial.Serial(args.serial, args.baud) as ser, _shh(ser):
         while True:
             pass #Here could be your code
     
