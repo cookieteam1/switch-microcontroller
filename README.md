@@ -106,6 +106,7 @@ l: ZL is pressed
 r: ZR is pressed
 
 directions:
+left stick
 
       w
    q     e
@@ -114,9 +115,21 @@ a  ═══╬═══  d
       ║
    z     c
       s
+
+left stick
+
+      u
+   y     i
+      ║
+h  ═══╬═══  k
+      ║
+   n     m
+      j
+
 ```
 
 ## thanks
 
 Thanks to Shiny Quagsire for his [Splatoon post printer](https://github.com/shinyquagsire23/Switch-Fightstick) and progmem for his [original discovery](https://github.com/progmem/Switch-Fightstick).
 Also thanks to bertrandom for his [snowball thrower](https://github.com/bertrandom/snowball-thrower) and all the modifications.
+Also thanks to asottile for his [switchcontoller](https://github.com/asottile/switch-microcontroller) for the base code and example scripts.
