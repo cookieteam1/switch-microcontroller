@@ -1,3 +1,4 @@
+from __future__ import annotations
 import argparse
 import sys
 from methods import *
@@ -19,7 +20,7 @@ def main() -> int:
     vid.set(cv2.CAP_PROP_FRAME_WIDTH, args.frameW)
     vid.set(cv2.CAP_PROP_FRAME_HEIGHT, args.frameH)
 
-    with serial.Serial(args.serial, 9600) as ser:
+    with serial.Serial(args.serial, 9600) as ser, _shh(ser):
         while True:
             pass #Here could be your code
     

@@ -1,10 +1,14 @@
+from __future__ import annotations
 import numpy
 import serial
 import time
 import cv2
+import contextlib
+from typing import Generator
 
-def _press(ser: serial.Serial, s: str, duration: float = .1) -> None:
-    print(f'{s=} {duration=}')
+def _press(ser: serial.Serial, s: str, duration: float = .1, d: bool = False) -> None:
+    if d:
+        print(f'{s=} {duration=}')
     ser.write(s.encode())
     time.sleep(duration)
     ser.write(b'0')
@@ -39,7 +43,7 @@ def _await_pixel(
         *,
         x: int,
         y: int,
-        pixel,
+        pixel: tuple[ int, int, int],
         timeout: float = 90,
 ) -> None:
     end = time.time() + timeout
@@ -73,7 +77,7 @@ def _await_not_pixel(
         *,
         x: int,
         y: int,
-        pixel,
+        pixel: tuple[ int, int, int],
         timeout: float = 90,
 ) -> None:
     end = time.time() + timeout
@@ -82,3 +86,10 @@ def _await_not_pixel(
         frame = _getframe(vid)
         if time.time() > end:
             _alarm(ser, vid)
+
+@contextlib.contextmanager
+def _shh(ser: serial.Serial) -> Generator[None, None, None]:
+    try:
+        yield
+    finally:
+        ser.write(b'.')
