@@ -9,10 +9,6 @@ control your Nintendo Switch using a pro micro
 - usb cables (both use [micro usb])
 - wires
 
-[pro micro]: https://amzn.to/3rpb36r
-[ftdi usb to uart]: https://amzn.to/3dRWML0
-[micro usb]: https://amzn.to/2NVK4ll
-
 ## installation
 
 ```bash
@@ -116,7 +112,7 @@ a  ═══╬═══  d
    z     c
       s
 
-left stick
+right stick
 
       u
    y     i
@@ -127,6 +123,10 @@ h  ═══╬═══  k
       j
 
 ```
+
+## Planned
+
+- multibutton support
 
 ## thanks
 
