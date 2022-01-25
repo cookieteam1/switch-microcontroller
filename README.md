@@ -124,9 +124,13 @@ h  ═══╬═══  k
 
 ```
 
+If you want to use the notifications feature, you have input your credentials in credentials.py
+
 ## Planned
 
+- testing the notification feature
 - multibutton support
+- more notification options 
 
 ## thanks
 
