@@ -6,7 +6,7 @@ def sendMail():
         smtpObj = smtplib.SMTP(host=cr.smtpserv,port=cr.smtpport)
         smtpObj.starttls()
         smtpObj.login(user=cr.email,password=cr.pw)
-        smtpObj.sendmail(from_addr=cr.email, to_addrs=cr.receiver, msg=cr.message) 
+        smtpObj.sendmail(from_addr=cr.email, to_addrs=cr.receiver, msg=cr.mailmessage) 
         smtpObj.quit()        
         print("Successfully sent email")
     except smtplib.SMTPAuthenticationError:
