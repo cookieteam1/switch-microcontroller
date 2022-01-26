@@ -15,6 +15,11 @@ control your Nintendo Switch using a pro micro
 sudo apt install avrdude gcc-avr avr-libc dfu-programmer
 ```
 
+For all feature
+```
+pip install pyserial, numpy, opencv-python
+```
+
 ## assembly
 
 the assembly is fairly straightforward, here is a rough diagram of the parts
