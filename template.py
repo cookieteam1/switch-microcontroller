@@ -21,7 +21,7 @@ def main() -> int:
     vid.set(cv2.CAP_PROP_FRAME_WIDTH, args.frameW)
     vid.set(cv2.CAP_PROP_FRAME_HEIGHT, args.frameH)
 
-    with serial.Serial(args.serial, args.baud) as ser, _shh(ser):
+    with serial.Serial(args.serial, args.baud) as ser, shh(ser):
         while True:
             pass #Here could be your code
     

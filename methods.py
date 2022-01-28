@@ -6,7 +6,7 @@ import cv2
 import contextlib
 from typing import Generator
 
-def _press(ser: serial.Serial, s: str, duration: float = .1, d: bool = False) -> None:
+def press(ser: serial.Serial, s: str, duration: float = .1, d: bool = False) -> None:
     if d:
         print(f'{s=} {duration=}')
     ser.write(s.encode())
@@ -15,7 +15,7 @@ def _press(ser: serial.Serial, s: str, duration: float = .1, d: bool = False) ->
     time.sleep(.075)
 
 
-def _getframe(vid: cv2.VideoCapture) -> numpy.ndarray:
+def getframe(vid: cv2.VideoCapture) -> numpy.ndarray:
     _, frame = vid.read()
     cv2.imshow('game', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -23,21 +23,21 @@ def _getframe(vid: cv2.VideoCapture) -> numpy.ndarray:
     return frame
 
 
-def _wait_and_render(vid: cv2.VideoCapture, t: float) -> None:
+def wait_and_render(vid: cv2.VideoCapture, t: float) -> None:
     end = time.time() + t
     while time.time() < end:
-        _getframe(vid)
+        getframe(vid)
 
 
-def _alarm(ser: serial.Serial, vid: cv2.VideoCapture) -> None:
+def alarm(ser: serial.Serial, vid: cv2.VideoCapture) -> None:
     while True:
         ser.write(b'!')
-        _wait_and_render(vid, .5)
+        wait_and_render(vid, .5)
         ser.write(b'.')
-        _wait_and_render(vid, .5)
+        wait_and_render(vid, .5)
 
 
-def _await_pixel(
+def await_pixel(
         ser: serial.Serial,
         vid: cv2.VideoCapture,
         *,
@@ -47,13 +47,13 @@ def _await_pixel(
         timeout: float = 90,
 ) -> None:
     end = time.time() + timeout
-    frame = _getframe(vid)
+    frame = getframe(vid)
     while not numpy.array_equal(frame[y][x], pixel):
-        frame = _getframe(vid)
+        frame = getframe(vid)
         if time.time() > end:
-            _alarm(ser, vid)
+            alarm(ser, vid)
 
-def _await_channel_value(
+def await_channel_value(
         ser: serial.Serial,
         vid: cv2.VideoCapture,
         *,
@@ -64,14 +64,14 @@ def _await_channel_value(
         timeout: float = 90,
 ) -> None:
     end = time.time() + timeout
-    frame = _getframe(vid)
+    frame = getframe(vid)
     while not frame[y][x][ch]== val:
-        frame = _getframe(vid)
+        frame = getframe(vid)
         if time.time() > end:
-            _alarm(ser, vid)
+            alarm(ser, vid)
 
 
-def _await_not_pixel(
+def await_not_pixel(
         ser: serial.Serial,
         vid: cv2.VideoCapture,
         *,
@@ -81,14 +81,14 @@ def _await_not_pixel(
         timeout: float = 90,
 ) -> None:
     end = time.time() + timeout
-    frame = _getframe(vid)
+    frame = getframe(vid)
     while numpy.array_equal(frame[y][x], pixel):
-        frame = _getframe(vid)
+        frame = getframe(vid)
         if time.time() > end:
-            _alarm(ser, vid)
+            alarm(ser, vid)
 
 @contextlib.contextmanager
-def _shh(ser: serial.Serial) -> Generator[None, None, None]:
+def shh(ser: serial.Serial) -> Generator[None, None, None]:
     try:
         yield
     finally:
